@@ -20,6 +20,13 @@
 			{
 				"navigationBarTitleText" : "歌单"
 			}
+		},
+		{
+			"path" : "pages/dayRecommendations/dayRecommendations",
+			"style" : 
+			{
+				"navigationBarTitleText" : "每日推荐"
+			}
 		}
 	],
 	"globalStyle": {

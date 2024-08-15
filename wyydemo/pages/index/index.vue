@@ -24,6 +24,13 @@ const songSheet = (id: number) => {
 		url: `/pages/songsheet/songsheet?id=${id}`
 	});
 }
+
+//导航跳转对应的页面
+const navDetail = (url:string) => {
+	uni.navigateTo({
+		url
+	})
+}
 	
 </script>
 
@@ -47,7 +54,7 @@ const songSheet = (id: number) => {
 	 <!-- 导航 -->
 	 <view class="scroll-view-box">
 	 	<scroll-view class="scroll-view-box-box" scroll-x enable-flex style="flex-direction:row">
-			<view class="scroll-view-box-item" v-for="item in ballList" :key="item.name">
+			<view class="scroll-view-box-item" v-for="item in ballList" :key="item.name" @click="navDetail(item.url)">
 				<image :src="item.iconUrl" mode="widthFix"></image>
 				<text>{{item.name}}</text>
 			</view>

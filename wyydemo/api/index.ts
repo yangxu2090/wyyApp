@@ -3,7 +3,8 @@ import {
 	Banners,
 	Recommended,
 	SongDetail,
-	CommentSong
+	CommentSong,
+	Dayrecommendations
 } from './type'
 
 
@@ -52,3 +53,9 @@ export  const commentSongListDetailApi = (id:string) => {
 	})
 }
 
+// 每日歌单  https://zyxcl.xyz/music/api/recommend/songs
+export  const dayrecommendationsApi = () => {
+	return request<Dayrecommendations>({
+	  url: 'https://zyxcl.xyz/music/api/recommend/songs',
+	})
+}

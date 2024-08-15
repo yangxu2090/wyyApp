@@ -3,7 +3,7 @@ export const ballList = [
         "id": -1,
         "name": "每日推荐",
         "iconUrl": "http://p1.music.126.net/4DpSgAVpJny4Ewf-Xw_WQQ==/109951163986641971.jpg",
-        "url": ""
+        "url": "/pages/dayRecommendations/dayRecommendations"
     },
     {
         "id": -6,
@@ -15,7 +15,7 @@ export const ballList = [
         "id": -2,
         "name": "歌单",
         "iconUrl": "http://p1.music.126.net/uG5p6CnwAHrLqOkaSeRlnA==/109951163986649164.jpg",
-        "url": "",
+        "url": '',
     },
     {
         "id": -3,

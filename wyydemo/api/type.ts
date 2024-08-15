@@ -95,3 +95,38 @@ export interface CommentSong {
 	[key:string]:any
 }
 
+
+
+
+
+// 每日 歌单
+export interface DayrecommendationsItem {
+	name: string
+	id: number
+	ar: {
+		id: number
+		name: string
+	}[]
+	[key: string]: any
+}
+
+export interface DayrecommendationsData {
+	code: number
+	data: {
+		dailySongs:DayrecommendationsItem[]
+		[key: string]: any
+	}
+	[key: string]: any; // 索引签名应该放在最后
+	// dailySongs:DayrecommendationsItem[]
+}
+
+export interface Dayrecommendations {
+	data: DayrecommendationsData
+	[key: string]: any
+}
+
+
+
+
+
+
