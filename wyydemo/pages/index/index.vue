@@ -32,6 +32,13 @@ const navDetail = (url:string) => {
 	})
 }
 	
+// 搜索界面
+const search = () => {
+	uni.navigateTo({
+		url: "/pages/search/search"
+	})
+}
+
 </script>
 
 
@@ -40,7 +47,7 @@ const navDetail = (url:string) => {
 	 <!-- 头部 -->
 	 <view class="header">
 		<uni-icons class="header-icons" type="list" size="30"></uni-icons>
-		<view class="search">搜索</view>
+		<view class="search" @click="search">搜索</view>
 	 </view>
 	 <!-- 轮播图 -->
 	 <view class="swiper-box">

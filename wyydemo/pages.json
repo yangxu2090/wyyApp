@@ -27,6 +27,13 @@
 			{
 				"navigationBarTitleText" : "每日推荐"
 			}
+		},
+		{
+			"path" : "pages/search/search",
+			"style" : 
+			{
+				"navigationBarTitleText" : "搜索"
+			}
 		}
 	],
 	"globalStyle": {
