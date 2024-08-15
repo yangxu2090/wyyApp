@@ -1,8 +1,17 @@
 {
   "pages": [
     "pages/index/index",
+<<<<<<< HEAD
     "pages/mine/mine",
     "pages/songsheet/songsheet"
+=======
+<<<<<<< HEAD
+    "pages/mine/mine",
+    "pages/songsheet/songsheet"
+=======
+    "pages/mine/mine"
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
+>>>>>>> a6246c6326a59a91044f594a4fcf1cc3cd831361
   ],
   "window": {
     "navigationBarTextStyle": "black",

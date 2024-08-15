@@ -2,7 +2,8 @@ import { request } from './request'
 import {
 	Banners,
 	Recommended,
-	SongDetail
+	SongDetail,
+	CommentSong
 } from './type'
 
 
@@ -41,4 +42,13 @@ export  const songListDetailApi = (id:string) => {
 	})
 }
 
+// 歌单评论
+export  const commentSongListDetailApi = (id:string) => {
+	return request<CommentSong>({
+	  url: 'https://zyxcl.xyz/music/api/comment/playlist',
+		data: {
+			id
+		}
+	})
+}
 

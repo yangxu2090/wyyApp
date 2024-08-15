@@ -18,6 +18,15 @@ const songListDetailApi = (id) => {
     }
   });
 };
+const commentSongListDetailApi = (id) => {
+  return api_request.request({
+    url: "https://zyxcl.xyz/music/api/comment/playlist",
+    data: {
+      id
+    }
+  });
+};
 exports.bannerApi = bannerApi;
+exports.commentSongListDetailApi = commentSongListDetailApi;
 exports.personalizedApi = personalizedApi;
 exports.songListDetailApi = songListDetailApi;
