@@ -2,8 +2,12 @@
   "navigationBarTitleText": "首页",
   "navigationBarBackgroundColor": "#ffffff",
   "navigationStyle": "custom",
+<<<<<<< HEAD
   "usingComponents": {
     "uni-icons": "../../uni_modules/uni-icons/components/uni-icons/uni-icons",
     "uni-section": "../../uni_modules/uni-section/components/uni-section/uni-section"
   }
+=======
+  "usingComponents": {}
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 }

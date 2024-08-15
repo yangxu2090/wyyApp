@@ -4,7 +4,10 @@ const common_vendor = require("./common/vendor.js");
 if (!Math) {
   "./pages/index/index.js";
   "./pages/mine/mine.js";
+<<<<<<< HEAD
   "./pages/songsheet/songsheet.js";
+=======
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 }
 const _sfc_main = {
   onLaunch: function() {

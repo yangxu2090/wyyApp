@@ -75,8 +75,13 @@ const capitalize = cacheStringFunction((str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 });
 const toHandlerKey = cacheStringFunction((str) => {
+<<<<<<< HEAD
   const s2 = str ? `on${capitalize(str)}` : ``;
   return s2;
+=======
+  const s = str ? `on${capitalize(str)}` : ``;
+  return s;
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 });
 const hasChanged = (value, oldValue) => !Object.is(value, oldValue);
 const invokeArrayFns$1 = (fns, arg) => {
@@ -92,13 +97,19 @@ const def = (obj, key, value) => {
   });
 };
 const looseToNumber = (val) => {
+<<<<<<< HEAD
   const n2 = parseFloat(val);
   return isNaN(n2) ? val : n2;
+=======
+  const n = parseFloat(val);
+  return isNaN(n) ? val : n;
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 };
 let _globalThis;
 const getGlobalThis = () => {
   return _globalThis || (_globalThis = typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : {});
 };
+<<<<<<< HEAD
 function normalizeStyle(value) {
   if (isArray(value)) {
     const res = {};
@@ -149,6 +160,8 @@ function normalizeClass(value) {
   }
   return res.trim();
 }
+=======
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 const toDisplayString = (val) => {
   return isString(val) ? val : val == null ? "" : isArray(val) || isObject(val) && (val.toString === objectToString || !isFunction(val.toString)) ? JSON.stringify(val, replacer, 2) : String(val);
 };
@@ -365,8 +378,13 @@ const E = function() {
 };
 E.prototype = {
   on: function(name, callback, ctx) {
+<<<<<<< HEAD
     var e2 = this.e || (this.e = {});
     (e2[name] || (e2[name] = [])).push({
+=======
+    var e = this.e || (this.e = {});
+    (e[name] || (e[name] = [])).push({
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
       fn: callback,
       ctx
     });
@@ -392,8 +410,13 @@ E.prototype = {
     return this;
   },
   off: function(name, callback) {
+<<<<<<< HEAD
     var e2 = this.e || (this.e = {});
     var evts = e2[name];
+=======
+    var e = this.e || (this.e = {});
+    var evts = e[name];
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
     var liveEvents = [];
     if (evts && callback) {
       for (var i = evts.length - 1; i >= 0; i--) {
@@ -404,7 +427,11 @@ E.prototype = {
       }
       liveEvents = evts;
     }
+<<<<<<< HEAD
     liveEvents.length ? e2[name] = liveEvents : delete e2[name];
+=======
+    liveEvents.length ? e[name] = liveEvents : delete e[name];
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
     return this;
   }
 };
@@ -579,8 +606,13 @@ function tryCatch(fn) {
   return function() {
     try {
       return fn.apply(fn, arguments);
+<<<<<<< HEAD
     } catch (e2) {
       console.error(e2);
+=======
+    } catch (e) {
+      console.error(e);
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
     }
   };
 }
@@ -1010,7 +1042,11 @@ const $off = defineSyncApi(API_OFF, (name, callback) => {
   }
   if (!isArray(name))
     name = [name];
+<<<<<<< HEAD
   name.forEach((n2) => emitter.off(n2, callback));
+=======
+  name.forEach((n) => emitter.off(n, callback));
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 }, OffProtocol);
 const $emit = defineSyncApi(API_EMIT, (name, ...args) => {
   emitter.emit(name, ...args);
@@ -1021,7 +1057,11 @@ let enabled;
 function normalizePushMessage(message) {
   try {
     return JSON.parse(message);
+<<<<<<< HEAD
   } catch (e2) {
+=======
+  } catch (e) {
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
   }
   return message;
 }
@@ -4316,6 +4356,7 @@ function injectHook(type, hook, target = currentInstance, prepend = false) {
     );
   }
 }
+<<<<<<< HEAD
 const createHook$1 = (lifecycle) => (hook, target = currentInstance) => (
   // post-create lifecycle registrations are noops during SSR (except for serverPrefetch)
   (!isInSSRComponentSetup || lifecycle === "sp") && injectHook(lifecycle, (...args) => hook(...args), target)
@@ -4331,6 +4372,23 @@ const onRenderTriggered = createHook$1(
   "rtg"
 );
 const onRenderTracked = createHook$1(
+=======
+const createHook = (lifecycle) => (hook, target = currentInstance) => (
+  // post-create lifecycle registrations are noops during SSR (except for serverPrefetch)
+  (!isInSSRComponentSetup || lifecycle === "sp") && injectHook(lifecycle, (...args) => hook(...args), target)
+);
+const onBeforeMount = createHook("bm");
+const onMounted = createHook("m");
+const onBeforeUpdate = createHook("bu");
+const onUpdated = createHook("u");
+const onBeforeUnmount = createHook("bum");
+const onUnmounted = createHook("um");
+const onServerPrefetch = createHook("sp");
+const onRenderTriggered = createHook(
+  "rtg"
+);
+const onRenderTracked = createHook(
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
   "rtc"
 );
 function onErrorCaptured(hook, target = currentInstance) {
@@ -6682,6 +6740,7 @@ function getCreateApp() {
     return my[method];
   }
 }
+<<<<<<< HEAD
 function vOn(value, key) {
   const instance = getCurrentInstance();
   const ctx = instance.ctx;
@@ -6771,6 +6830,8 @@ function patchStopImmediatePropagation(e2, value) {
     return value;
   }
 }
+=======
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 function vFor(source, renderItem) {
   let ret;
   if (isArray(source) || isString(source)) {
@@ -6803,6 +6864,7 @@ function vFor(source, renderItem) {
   }
   return ret;
 }
+<<<<<<< HEAD
 function stringifyStyle(value) {
   if (isString(value)) {
     return value;
@@ -6824,6 +6886,9 @@ const f = (source, renderItem) => vFor(source, renderItem);
 const s = (value) => stringifyStyle(value);
 const e = (target, ...sources) => extend(target, ...sources);
 const n = (value) => normalizeClass(value);
+=======
+const f = (source, renderItem) => vFor(source, renderItem);
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 const t = (val) => toDisplayString(val);
 const p = (props) => renderProps(props);
 function createApp$1(rootComponent, rootProps = null) {
@@ -7657,6 +7722,7 @@ const createSubpackageApp = initCreateSubpackageApp();
   wx.createPluginApp = global.createPluginApp = createPluginApp;
   wx.createSubpackageApp = global.createSubpackageApp = createSubpackageApp;
 }
+<<<<<<< HEAD
 const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
   !isInSSRComponentSetup && injectHook(lifecycle, hook, target);
 };
@@ -7674,5 +7740,15 @@ exports.p = p;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;
 exports.s = s;
+=======
+exports._export_sfc = _export_sfc;
+exports.createSSRApp = createSSRApp;
+exports.defineComponent = defineComponent;
+exports.f = f;
+exports.index = index;
+exports.p = p;
+exports.ref = ref;
+exports.resolveComponent = resolveComponent;
+>>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 exports.t = t;
 exports.unref = unref;
