@@ -1,0 +1,1 @@
+<view class="song-box data-v-9a985123"><view class="song-box-up data-v-9a985123"><image class="data-v-9a985123" src="{{a}}" mode="widthFix"></image><view class="song-box-center data-v-9a985123"><view class="song-box-title data-v-9a985123">{{b}}</view></view></view><view class="song-box-text data-v-9a985123"></view><view class="song-box-btns data-v-9a985123"></view></view>

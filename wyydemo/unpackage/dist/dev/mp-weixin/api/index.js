@@ -10,5 +10,14 @@ const personalizedApi = () => {
     url: "https://zyxcl.xyz/music/api/personalized"
   });
 };
+const songListDetailApi = (id) => {
+  return api_request.request({
+    url: "https://zyxcl.xyz/music/api/playlist/detail",
+    data: {
+      id
+    }
+  });
+};
 exports.bannerApi = bannerApi;
 exports.personalizedApi = personalizedApi;
+exports.songListDetailApi = songListDetailApi;
