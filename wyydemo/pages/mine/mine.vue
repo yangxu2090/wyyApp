@@ -1,22 +1,21 @@
+<script>
+
+</script>
 <template>
 	<view>
-		æˆ‘çš„é¡µé¢
+		<view class="header">
+			<view>
+				<image src=""></image>
+			</view>
+			<view>
+				<navigator url="">¹Ø×¢</navigator>
+				<navigator url="">·ÛË¿</navigator>
+				<navigator url="">µÈ¼¶</navigator>
+				<navigator url="">Ìı¸è</navigator>
+			</view>
+		</view>
 	</view>
 </template>
-
-<script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
-</script>
-
-<style>
+<style lang="scss" scoped>
 
 </style>

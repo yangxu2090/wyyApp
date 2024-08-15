@@ -26,8 +26,8 @@
 			{	
 				"selectedColor": "#ee3f4d",
 				"color":"black",
-				"selectedIconPath": "/icons/faxian_1.png",
-				"iconPath": "/icons/faxian.png",
+				"selectedIconPath": "icons/faxian_1.png",
+				"iconPath": "icons/faxian.png",
 				"text": "发现",
 				"pagePath": "pages/index/index"
 			},

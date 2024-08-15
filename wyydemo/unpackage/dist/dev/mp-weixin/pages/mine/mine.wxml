@@ -1,1 +1,1 @@
-<view> 我的页面 </view>
+<view><view class="header"><view><image src="{{''}}"></image></view><view><navigator url="">��ע</navigator><navigator url="">��˿</navigator><navigator url="">�ȼ�</navigator><navigator url="">����</navigator></view></view></view>
