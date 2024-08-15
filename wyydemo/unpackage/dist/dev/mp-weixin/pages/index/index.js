@@ -3,7 +3,6 @@ const common_vendor = require("../../common/vendor.js");
 const api_index = require("../../api/index.js");
 const pages_index_navball = require("./navball.js");
 if (!Array) {
-<<<<<<< HEAD
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   const _easycom_uni_section2 = common_vendor.resolveComponent("uni-section");
   (_easycom_uni_icons2 + _easycom_uni_section2)();
@@ -12,11 +11,6 @@ const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-ico
 const _easycom_uni_section = () => "../../uni_modules/uni-section/components/uni-section/uni-section.js";
 if (!Math) {
   (_easycom_uni_icons + _easycom_uni_section)();
-=======
-  const _component_uni_icons = common_vendor.resolveComponent("uni-icons");
-  const _component_uni_section = common_vendor.resolveComponent("uni-section");
-  (_component_uni_icons + _component_uni_section)();
->>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
 }
 const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
   __name: "index",
@@ -29,14 +23,11 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     api_index.personalizedApi().then((res) => {
       playlists.value = res.data.result;
     });
-<<<<<<< HEAD
     const songSheet = (id) => {
       common_vendor.index.navigateTo({
         url: `/pages/songsheet/songsheet?id=${id}`
       });
     };
-=======
->>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -64,12 +55,8 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           return {
             a: item.picUrl,
             b: common_vendor.t(item.name),
-<<<<<<< HEAD
             c: item.name,
             d: common_vendor.o(($event) => songSheet(item.id), item.name)
-=======
-            c: item.name
->>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
           };
         }),
         f: common_vendor.p({

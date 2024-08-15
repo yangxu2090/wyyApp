@@ -5,8 +5,13 @@
     "pages/mine/mine",
     "pages/songsheet/songsheet"
 =======
+<<<<<<< HEAD
+    "pages/mine/mine",
+    "pages/songsheet/songsheet"
+=======
     "pages/mine/mine"
 >>>>>>> 5d5e765f3a8a0b3b143167d83fe410119b417674
+>>>>>>> a6246c6326a59a91044f594a4fcf1cc3cd831361
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -16,10 +21,18 @@
   "tabBar": {
     "list": [
       {
+        "selectedColor": "#ee3f4d",
+        "color": "black",
+        "selectedIconPath": "/icons/faxian_1.png",
+        "iconPath": "/icons/faxian.png",
         "text": "发现",
         "pagePath": "pages/index/index"
       },
       {
+        "selectedColor": "#ee3f4d",
+        "color": "black",
+        "iconPath": "icons/wode.png",
+        "selectedIconPath": "icons/wode_1.png",
         "text": "我的",
         "pagePath": "pages/mine/mine"
       }
