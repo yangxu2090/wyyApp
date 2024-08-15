@@ -12,6 +12,15 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
+	*{
+		box-sizing: border-box;
+	}
+	html, body,#app{
+		width: 100vw;
+		height: 100vh;
+		box-sizing: border-box;
+	}
+
 </style>
