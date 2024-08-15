@@ -1,7 +1,8 @@
 import { request } from './request'
 import {
 	Banners,
-	Recommended
+	Recommended,
+	SongDetail
 } from './type'
 
 
@@ -23,12 +24,21 @@ export const homepageApi = () => {
 }
 
 
+// 推荐歌单的接口
 export const personalizedApi = () => {
   return request<Recommended>({
     url: 'https://zyxcl.xyz/music/api/personalized'
   })
 }
 
-
+// 详情页面的接口
+export  const songListDetailApi = (id:string) => {
+	return request<SongDetail>({
+	  url: 'https://zyxcl.xyz/music/api/playlist/detail',
+		data: {
+			id
+		}
+	})
+}
 
 

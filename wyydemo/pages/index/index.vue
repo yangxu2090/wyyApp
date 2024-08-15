@@ -17,7 +17,13 @@
 	personalizedApi().then( res => {
 		playlists.value = res.data.result
 	})
-	
+
+// 跳转歌单
+const songSheet = (id: number) => {
+	uni.navigateTo({
+		url: `/pages/songsheet/songsheet?id=${id}`
+	});
+}
 	
 </script>
 
@@ -54,7 +60,7 @@
 			<uni-section title="推荐歌单" type="line" />
 		</view>
 		<scroll-view class="playlists-box" scroll-x>
-			<view class="scroll-view-box-item" v-for="item in playlists" :key="item.name">
+			<view class="scroll-view-box-item" v-for="item in playlists" :key="item.name" @click="songSheet(item.id)">
 				<image :src="item.picUrl" mode="widthFix"></image>
 				<text>{{item.name}}</text>
 			</view>

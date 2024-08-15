@@ -30,6 +30,22 @@ export interface Recommended {
 }
 
 
+// 歌单详情
+export interface SongItem {
+	name: string
+	trackCount: number
+	description: string
+	coverImgUrl: string
+	userId: number
+	[key:string]: any
+	
+} 
+
+export interface SongDetail {
+	code: number
+	playlist: SongItem[]
+	[key:string]:any
+}
 
 
 
