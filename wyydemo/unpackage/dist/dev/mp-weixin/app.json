@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/songsheet/songsheet"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#c84341"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "text": "发现",
+        "pagePath": "pages/index/index"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/mine/mine"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

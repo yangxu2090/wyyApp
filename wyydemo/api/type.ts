@@ -57,9 +57,7 @@ export interface SongItem {
 	[key:string]: any
 }
 	
-	
-
-
+//歌单头部
 export interface SongDetail {
 	code: number
 	playlist: SongItem
