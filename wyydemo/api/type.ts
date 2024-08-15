@@ -126,6 +126,25 @@ export interface Dayrecommendations {
 }
 
 
+// 搜索界面的热搜榜
+export interface HotItem {
+	first: string
+	iconType: number
+	second: number 
+}
+
+export interface SearchHotSesult {
+	code: number
+	result: {
+		hots: HotItem[]
+	}
+}
+
+export interface SearchHot {
+	data: SearchHotSesult
+	[key: string]: any
+}
+
 
 
 

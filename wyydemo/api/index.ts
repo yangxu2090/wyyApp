@@ -4,7 +4,8 @@ import {
 	Recommended,
 	SongDetail,
 	CommentSong,
-	Dayrecommendations
+	Dayrecommendations,
+	SearchHot
 } from './type'
 
 
@@ -59,3 +60,25 @@ export  const dayrecommendationsApi = () => {
 	  url: 'https://zyxcl.xyz/music/api/recommend/songs',
 	})
 }
+
+
+
+// 搜索热门   https://zyxcl.xyz/music/api/search/hot/detai
+ export  const seacrchHotApi = () => {
+ 	return request<SearchHot>({
+ 	  url: 'https://zyxcl.xyz/music/api/search/hot/detai',
+ 	})
+ }
+
+//搜索   
+export  const seacrchSearchApi = (keywords: string) => {
+ 	return request<SearchHot>({
+ 	  url: 'https://zyxcl.xyz/music/api/search/suggest',
+		data: {
+			keywords
+		}
+ 	})
+ }
+
+
+
