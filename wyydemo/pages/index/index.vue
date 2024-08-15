@@ -129,7 +129,7 @@
 			height: 65rpx;
 			line-height: 65rpx;
 			background-color: #eeeeee;
-			border-radius: 5px;
+			border-radius: 10rpx;
 		}
 	}
 	
