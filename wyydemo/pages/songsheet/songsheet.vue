@@ -1,18 +1,41 @@
 <script setup lang="ts">
 	import {ref} from 'vue'
 	import { onLoad } from '@dcloudio/uni-app'
-	import { songListDetailApi } from '../../api/index'
-	import type { SongItem } from '../../api/type'
+	import { songListDetailApi, commentSongListDetailApi } from '../../api/index'
+	import type { SongItem, CommentItem } from '../../api/type'
 	
-	const songList = ref<SongItem>(null);
+	const share = ref(null)
+	const songList = ref<SongItem>(null)//评论
+	const commentSongListDetail = ref([])//歌单全部歌曲
+	const hotComments = ref<CommentItem[]>([])
+	const comments = ref<CommentItem[]>([]) 
 	
+	const popup = ref(null)
 	onLoad(async (options) => {
-			const res = await songListDetailApi(options?.id)
-			console.log(res.data.playlist.tracks)
-			songList.value = res.data.playlist
-
+			getSongList(options?.id)
+			getCommenSongList(options?.id)
 	})
 	
+	//获取头部内容渲染
+	const  getSongList  = async (id:string) => {
+		const res = await songListDetailApi(id)
+		songList.value = res.data.playlist
+	}
+	//获取歌单评论渲染
+	const  getCommenSongList  = async (id:string) => {
+		const res = await commentSongListDetailApi(id)
+		comments.value = res.data.comments
+		hotComments.value = res.data.hotComments
+	}
+	
+	//评论
+	const open = () => {
+	  popup.value.open('bottom')
+	}
+	//分享
+	const shareToggle = () => {
+		share.value.open()
+	}
 	
 </script>
 
@@ -41,14 +64,14 @@
 		</view>
 		<!-- 按钮 -->
 		<view class="example-body">
-			<view class="tag-view">
-				<uni-tag :circle="true" text="转发" type="primary" />
+			<view class="tag-view" @click="shareToggle">
+				<uni-tag :circle="true" :text="songList?.shareCount" type="primary" />
+			</view>
+			<view class="tag-view" @click="open">
+				<uni-tag :circle="true" :text="songList?.commentCount" type="primary"   />
 			</view>
 			<view class="tag-view">
-				<uni-tag :circle="true" text="评论" type="primary"  />
-			</view>
-			<view class="tag-view">
-				<uni-tag :circle="true" text="留言" type="primary"   />
+				<uni-tag :circle="true" :text="songList?.subscribedCount" type="primary"   />
 			</view>
 		</view>
 		
@@ -66,19 +89,52 @@
 	<scroll-view class="scroll-box">
 		<uni-section  title="播放全部" type="line">
 					<uni-list>
-						<uni-list-item 
-						v-for="(item, index) in songList?.tracks"
+						<uni-list-item  v-for="(item, index) in songList?.tracks"
 						:key="item.id"
 						title="item.name" 
 						note="item.ar.map(v => v.name).join('/')" 
 						showArrow		
-						thumb=""
 						thumb-size="sm" 
 						rightText="" />
 					</uni-list>
 		</uni-section>
 	</scroll-view>
 	
+	<!-- 点击评论 -->
+  <uni-popup ref="popup" border-radius="10px 10px 0 0">
+		 <scroll-view class="popup-list" scroll-y>
+			  <uni-section title="热门评论" type="line">
+				 <uni-list>
+					<uni-list-item
+						v-for="item in hotComments"
+						:key="item.commentId"
+						:title="item.user.nickname"
+						:note="item.content"
+						:thumb="item.user.avatarUrl"
+					>
+						</uni-list-item>
+					</uni-list>
+				</uni-section>
+				<uni-section title="最新评论" type="line">
+					<uni-list>
+						<uni-list-item
+							v-for="item in comments"
+							:key="item.commentId"
+							:title="item.user.nickname"
+							:note="item.content"
+							:thumb="item.user.avatarUrl"
+						>
+						</uni-list-item>
+					</uni-list>
+				</uni-section>
+		 </scroll-view>
+	</uni-popup>
+	
+	
+	<!-- 分享 -->
+	<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
+			<uni-popup-share></uni-popup-share>
+	</uni-popup>
 	
 </view>
 </template>
@@ -185,8 +241,14 @@
   align-items: center;
 }
 
+.tag-view{
+	position: relative;
+	z-index: 2;
+}
 
-
+.popup-list {
+  max-height: 1000rpx;
+}
 
 
 </style>

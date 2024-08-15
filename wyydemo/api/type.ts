@@ -65,4 +65,33 @@ export interface SongDetail {
 }
 
 
+//歌单评论
+export interface CommentItem {
+	commentId: number;
+		content: string;
+		richContent: string;
+		ipLocation: {
+			location: string;
+		}
+		timeStr: string;
+		time: number;
+		user: {
+			nickname: string;
+			userId: number;
+			avatarUrl: string;
+		}
+	
+}
+
+export interface CommentSongDate {
+	code: number
+	comments: CommentItem[]
+	hotComments:CommentItem[]
+}
+
+export interface CommentSong {
+	statusCode: number
+	data: CommentSongDate
+	[key:string]:any
+}
 
