@@ -96,17 +96,25 @@
 						showArrow		
 						thumb-size="sm" 
 <<<<<<< HEAD
+<<<<<<< HEAD
 						rightText="" >
 =======
 						rightText="">
+>>>>>>> yangxu
+=======
+						rightText="" >
 >>>>>>> yangxu
 						<template v-slot:header>
 						  <view class="no">{{index + 1}}</view>
 						</template>
 						</uni-list-item>
 <<<<<<< HEAD
+<<<<<<< HEAD
 						
 =======
+>>>>>>> yangxu
+=======
+
 >>>>>>> yangxu
 					</uni-list>
 		</uni-section>
