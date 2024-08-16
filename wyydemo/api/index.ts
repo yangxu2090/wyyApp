@@ -5,7 +5,8 @@ import {
 	SongDetail,
 	CommentSong,
 	Dayrecommendations,
-	SearchHot
+	SearchHot,
+	HomePage
 } from './type'
 
 
@@ -77,6 +78,13 @@ export  const seacrchSearchApi = (keywords: string) => {
 		data: {
 			keywords
 		}
+ 	})
+ }
+
+// 首页接口   https://zyxcl.xyz/music/api/homepage/block/page
+export  const homePageApi = () => {
+ 	return request<HomePage>({
+ 	  url: 'https://zyxcl.xyz/music/api/homepage/block/page',
  	})
  }
 
