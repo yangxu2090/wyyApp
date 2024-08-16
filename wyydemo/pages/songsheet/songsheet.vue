@@ -91,11 +91,15 @@
 					<uni-list>
 						<uni-list-item  v-for="(item, index) in songList?.tracks"
 						:key="item.id"
-						title="item.name" 
-						note="item.ar.map(v => v.name).join('/')" 
+						:title="item.name" 
+						:note="item.ar.map(v => v.name).join('/')" 
 						showArrow		
 						thumb-size="sm" 
-						rightText="" />
+						rightText="" >
+						<template v-slot:header>
+						  <view class="no">{{index + 1}}</view>
+						</template>
+						</uni-list-item>
 
 					</uni-list>
 		</uni-section>
