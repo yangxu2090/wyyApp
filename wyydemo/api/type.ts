@@ -231,6 +231,63 @@ export interface HomePage {
 
 
 
+// 歌曲 详情  
+export interface SongDeatailItem {
+		name: string
+		id: number
+		al: {
+			id: number
+			name: string
+			pic: number
+			picUrl: string
+			pic_str: string
+		}
+		ar:{
+			id: number
+			name: string
+		}[]
+		[key: string]: any
+}
 
+export interface SongDeatil {
+	data:{
+		code:number
+		songs:SongDeatailItem[]
+	}
+	[key: string]: any
+}
+
+
+
+
+// 歌曲url地址
+export interface SongUrlItem {
+	id: number
+	md5: string
+	url: string
+	time: number
+	size: number
+} 
+
+
+export interface SongUrl {
+	statusCode: number
+	data: SongUrlItem[]
+	[key: string]: any
+}
+
+
+
+// 歌曲  -》 歌曲
+export interface Lyric {
+	code: number
+	lrc: {
+		lyric: string
+	}
+}
+export interface SongLyric {
+	data:Lyric
+	[key: string]: any
+}
 
 

@@ -2,13 +2,17 @@
 	import {ref} from 'vue'
 	import { onLoad } from '@dcloudio/uni-app'
 	import { songListDetailApi, commentSongListDetailApi } from '../../api/index'
-	import type { SongItem, CommentItem } from '../../api/type'
+	import type { SongItem, CommentItem, Song } from '../../api/type'
+	import { useCounterStore } from '../../stores/playLists'
+
 	
+	const userStore = useCounterStore()
 	const share = ref(null)
 	const songList = ref<SongItem>(null)//评论
 	const commentSongListDetail = ref([])//歌单全部歌曲
 	const hotComments = ref<CommentItem[]>([])
 	const comments = ref<CommentItem[]>([]) 
+	const allTitle = ref<string>('') // 播放全部标题
 	
 	const popup = ref(null)
 	onLoad(async (options) => {
@@ -20,6 +24,7 @@
 	const  getSongList  = async (id:string) => {
 		const res = await songListDetailApi(id)
 		songList.value = res.data.playlist
+		allTitle.value =  `播放全部（${songList.value?.tracks.length})`
 	}
 	//获取歌单评论渲染
 	const  getCommenSongList  = async (id:string) => {
@@ -35,6 +40,22 @@
 	//分享
 	const shareToggle = () => {
 		share.value.open()
+	}
+	
+	// 跳转
+	const goPlayPage = (item:Song) => {
+		userStore.setPalyLists(item)
+		uni.navigateTo({
+			url: `/pages/playPage/playPage?id=${item.id}`
+		});
+		
+	}
+	// 点击播放全部
+	const allSong = () => {
+		userStore.setPalyListAll(songList.value?.tracks)
+		uni.navigateTo({
+			url: `/pages/playPage/playPage?id=${songList.value?.tracks[0].id}`
+		});
 	}
 	
 </script>
@@ -87,15 +108,17 @@
 	
 	<!-- 播放全部 -->
 	<scroll-view class="scroll-box">
-		<uni-section  title="播放全部" type="line">
-					<uni-list>
-						<uni-list-item  v-for="(item, index) in songList?.tracks"
+		<uni-section  :title="allTitle" type="line" @click="allSong">
+					<uni-list >
+						<uni-list-item  v-for="(item, index) in songList?.tracks" 
 						:key="item.id"
 						:title="item.name" 
-						:note="item.ar.map(v => v.name).join('/')" 
+						:note="item.ar.map(v => v.name).join('/')"
 						showArrow		
 						thumb-size="sm" 
-						rightText="" >
+						:rightText="userStore.curPalyList === index ? '正在播放' : '' " 
+						clickable
+						@click="goPlayPage(item)">
 						<template v-slot:header>
 						  <view class="no">{{index + 1}}</view>
 						</template>
@@ -249,11 +272,14 @@
 .tag-view{
 	position: relative;
 	z-index: 2;
+	background-color: #000000;
 }
 
 .popup-list {
   max-height: 1000rpx;
 }
+
+
 
 
 </style>

@@ -34,6 +34,13 @@
 			{
 				"navigationBarTitleText" : "搜索"
 			}
+		},
+		{
+			"path" : "pages/playPage/playPage",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"globalStyle": {

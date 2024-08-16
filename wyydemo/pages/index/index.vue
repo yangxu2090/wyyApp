@@ -21,7 +21,6 @@
 	const getHomePageApi = async () => {
 		try{
 			const res =  await homePageApi()
-			console.log(res.data.data.blocks[4].creatives)
 			bannersList.value = res.data.data.blocks[0].extInfo.banners   // banners 轮播图
 			recommendPlaylists.value = res.data.data.blocks[2].creatives  // 推荐歌单
 			recommendPlaylistsTitle.value = res.data.data.blocks[2].uiElement.subTitle.title //推荐歌单 标题
@@ -145,7 +144,7 @@ const search = () => {
 	 			<uni-section :title="radarPlaylistTitle" type="line" />
 	 		</view>
 	 		<scroll-view class="playlists-box" scroll-x>
-	 			<view class="scroll-view-box-item" v-for="item in radarPlaylist" :key="item.creativeId">
+	 			<view class="scroll-view-box-item" v-for="item in radarPlaylist" :key="item.creativeId" @click="songSheet(item.creativeId)">
 	 				<image :src="item.uiElement.image.imageUrl" mode="widthFix"></image>
 	 				<text>{{item.uiElement.mainTitle.title}}</text>
 	 			</view>
