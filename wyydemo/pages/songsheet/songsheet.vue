@@ -95,12 +95,19 @@
 						:note="item.ar.map(v => v.name).join('/')" 
 						showArrow		
 						thumb-size="sm" 
+<<<<<<< HEAD
 						rightText="" >
+=======
+						rightText="">
+>>>>>>> yangxu
 						<template v-slot:header>
 						  <view class="no">{{index + 1}}</view>
 						</template>
 						</uni-list-item>
+<<<<<<< HEAD
 						
+=======
+>>>>>>> yangxu
 					</uni-list>
 		</uni-section>
 	</scroll-view>

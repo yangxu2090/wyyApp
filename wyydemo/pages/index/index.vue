@@ -1,13 +1,44 @@
 <script lang="ts" setup>
 	import {ref} from 'vue'
-	import { bannerApi, homepageApi, personalizedApi } from '../../api/index'
+	import { bannerApi, homepageApi, personalizedApi, homePageApi } from '../../api/index'
 	import { ballList } from './navball'
-	import  type { BannersItem, RecommendedItem} from '../../api/type'
+	import  type { BannersItem, RecommendedItem, BannerNewItem, RecommendedPlay} from '../../api/type'
 	
 	
 	
 	const banners = ref<BannersItem[]>([])  // banners 轮播图
 	const playlists = ref<RecommendedItem[]>([]) //  推荐歌单
+	
+	const bannersList = ref<BannerNewItem[]>([]) // banners 轮播图
+	const recommendPlaylists = ref<RecommendedPlay[]>([]) // 推荐歌单
+	const recommendPlaylistsTitle = ref<string>('') //推荐歌单标题
+	const songSheetHost = ref<RecommendedPlay[]>([]) // 歌单排行榜
+	const songSheetHostTitle =  ref<string>('') // 歌单排行榜标题
+	
+	const radarPlaylist = ref<RecommendedPlay[]>([]) // 雷达歌单
+	const radarPlaylistTitle =  ref<string>('') // 雷达歌单标题
+	// 首页
+	const getHomePageApi = async () => {
+		try{
+			const res =  await homePageApi()
+			console.log(res.data.data.blocks[4].creatives)
+			bannersList.value = res.data.data.blocks[0].extInfo.banners   // banners 轮播图
+			recommendPlaylists.value = res.data.data.blocks[2].creatives  // 推荐歌单
+			recommendPlaylistsTitle.value = res.data.data.blocks[2].uiElement.subTitle.title //推荐歌单 标题
+			
+			songSheetHost.value = res.data.data.blocks[3].creatives  // 歌单排行榜
+			songSheetHostTitle.value = res.data.data.blocks[3].uiElement.subTitle.title // 歌单排行榜 标题
+			
+			radarPlaylist.value = res.data.data.blocks[4].creatives  // 雷达歌单
+			radarPlaylistTitle.value = res.data.data.blocks[4].uiElement.subTitle.title // 歌单排行榜 标题
+		}catch(e){
+			uni.showToast({
+			      title: '获取文件失败',
+			      icon: 'error'
+			})
+		}
+	}
+	getHomePageApi()
 	
 	 // banners 轮播图
 	bannerApi().then( res => {
@@ -19,7 +50,7 @@
 	})
 
 // 跳转歌单
-const songSheet = (id: number) => {
+const songSheet = (id: number | string) => {
 	uni.navigateTo({
 		url: `/pages/songsheet/songsheet?id=${id}`
 	});
@@ -52,8 +83,8 @@ const search = () => {
 	 <!-- 轮播图 -->
 	 <view class="swiper-box">
 	 	<swiper class="swiper" indicator-dots>
-	 		<swiper-item  class="swiper-item" v-for="item in banners" :key="item.imageUrl">
-					<image class="image" :src="item.imageUrl" mode="widthFix"></image>
+	 		<swiper-item  class="swiper-item" v-for="item in bannersList" :key="item.bannerId">
+					<image class="image" :src="item.pic" mode="widthFix"></image>
 	 		</swiper-item>
 	 	</swiper>
 	 </view>
@@ -71,12 +102,12 @@ const search = () => {
 	 <!-- 推荐歌单 -->
 	 <view class="playlists">
 		<view class="playlists-title">
-			<uni-section title="推荐歌单" type="line" />
+			<uni-section :title="recommendPlaylistsTitle" type="line" />
 		</view>
 		<scroll-view class="playlists-box" scroll-x>
-			<view class="scroll-view-box-item" v-for="item in playlists" :key="item.name" @click="songSheet(item.id)">
-				<image :src="item.picUrl" mode="widthFix"></image>
-				<text>{{item.name}}</text>
+			<view class="scroll-view-box-item" v-for="item in recommendPlaylists" :key="item.creativeId" @click="songSheet(item.creativeId)">
+				<image :src="item.uiElement.image.imageUrl" mode="widthFix"></image>
+				<text>{{item.uiElement.mainTitle.title}}</text>
 			</view>
 		</scroll-view>
 	 </view>
@@ -84,19 +115,19 @@ const search = () => {
 	 <!-- 粤语|中文|欧美|热门榜单 -->
 	 <view class="nationwidesong">
 	 	<view class="nationwidesong-title">
-	 		<uni-section title="粤语 | 中文 | 欧美 | 热门榜单" type="line" />
+	 		<uni-section :title="songSheetHostTitle" type="line" />
 	 	</view>
 		<scroll-view class="nationwidesong-box" scroll-x>
-			<view class="nationwidesong-box-item">
-				<view class="playitem">
+			<view class="nationwidesong-box-item" v-for="item in songSheetHost" :key="item.creativeId">
+				<view class="playitem" v-for="vi in item.resources" :key="vi.resourceId">
 					<view class="playitem-left">
-						<image src="" mode=""></image>
+						<image :src="vi.resourceExtInfo.song.al.picUrl" mode="widthFix"></image>
 						<view class="songname">
 							<view class="songname-name">
-								Where Did You Go
+								{{vi.resourceExtInfo.song.al.name}}
 							</view>
 							<view class="songname-author">
-								邓紫棋
+								{{vi.resourceExtInfo.song.ar.map( v => v.name).join('/')}}
 							</view>
 						</view>
 					</view>
@@ -111,12 +142,12 @@ const search = () => {
 	 <!-- 你的雷达歌单 -->
 	 <view class="playlists">
 	 		<view class="playlists-title">
-	 			<uni-section title="你的雷达歌单" type="line" />
+	 			<uni-section :title="radarPlaylistTitle" type="line" />
 	 		</view>
 	 		<scroll-view class="playlists-box" scroll-x>
-	 			<view class="scroll-view-box-item" v-for="item in playlists" :key="item.name">
-	 				<image :src="item.picUrl" mode="widthFix"></image>
-	 				<text>{{item.name}}</text>
+	 			<view class="scroll-view-box-item" v-for="item in radarPlaylist" :key="item.creativeId">
+	 				<image :src="item.uiElement.image.imageUrl" mode="widthFix"></image>
+	 				<text>{{item.uiElement.mainTitle.title}}</text>
 	 			</view>
 	 		</scroll-view>
 	 </view>
