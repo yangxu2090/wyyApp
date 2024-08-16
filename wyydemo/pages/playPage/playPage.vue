@@ -116,8 +116,10 @@
 	});
 	
 	
-	
-
+	// 播放歌曲结束
+  innerAudioContext.onEnded (() => {
+		changeSong(1)
+	})
 	
 	// 播放循序开关
 	const orderAdd = () => {
