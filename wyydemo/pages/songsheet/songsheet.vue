@@ -116,33 +116,13 @@
 						:note="item.ar.map(v => v.name).join('/')"
 						showArrow		
 						thumb-size="sm" 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-						rightText="" >
-=======
-						rightText="">
->>>>>>> yangxu
-=======
-						rightText="" >
->>>>>>> yangxu
-=======
 						:rightText="userStore.curPalyList === index ? '正在播放' : '' " 
 						clickable
 						@click="goPlayPage(item)">
->>>>>>> yangxu
 						<template v-slot:header>
 						  <view class="no">{{index + 1}}</view>
 						</template>
 						</uni-list-item>
-<<<<<<< HEAD
-<<<<<<< HEAD
-						
-=======
->>>>>>> yangxu
-=======
-
->>>>>>> yangxu
 					</uni-list>
 		</uni-section>
 	</scroll-view>
