@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue'
-import type { Song } from '../api/type'
+import type { Song,SearchDateResult } from '../api/type'
 
 
 export const useCounterStore = defineStore('paly', () => {

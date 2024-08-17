@@ -9,7 +9,8 @@ import {
 	HomePage,
 	SongDeatil,
 	SongUrl,
-	SongLyric
+	SongLyric,
+	Search
 } from './type'
 
 
@@ -76,7 +77,7 @@ export  const dayrecommendationsApi = () => {
 
 //搜索   
 export  const seacrchSearchApi = (keywords: string) => {
- 	return request<SearchHot>({
+ 	return request<Search>({
  	  url: 'https://zyxcl.xyz/music/api/search/suggest',
 		data: {
 			keywords

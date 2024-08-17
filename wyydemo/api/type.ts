@@ -1,3 +1,5 @@
+import { number } from "prop-types"
+
 // 轮播图接口
 export interface BannersItem {
 	imageUrl: string
@@ -32,10 +34,10 @@ export interface Recommended {
 
 // 歌单详情
 export interface Song {
-	name: string;
-	id: number;
-	ar: { id: number; name: string; }[];
-	al: {
+	name?: string;
+	id?: number;
+	ar?: { id: number; name: string; }[];
+	al?: {
 		id: number;
 		name: string;
 		picUrl: string;
@@ -289,5 +291,62 @@ export interface SongLyric {
 	data:Lyric
 	[key: string]: any
 }
+
+
+
+
+// 搜索--接口
+export interface SearchDateResult {
+	albums?:{
+		id:number
+		copyrightId: number
+		name: string
+		picId: number
+		publishTime: number
+		artist: {
+			name: string
+			img1v1Url: string
+			picUrl: string
+			picId: number
+			[key: string]: any
+		}
+	}[]
+	songs?: {
+		name: string
+		id: number
+		copyrightId: number
+		album?:{
+			id: number
+			name: string
+			copyrightId:number
+			artist:{
+				id: number
+				img1v1Url:string
+				[key: string]: any
+			}
+			[key: string]: any
+		}
+		artists?:{
+			id: number
+			img1v1Url: string
+			name:string
+			[key: string]: any
+		}[]
+	}[]
+	[key: string]: any
+}
+
+export interface Search {
+	data:{
+		code: number
+		result:SearchDateResult
+	}
+	statusCode: number
+	errMsg: string
+	[key: string]: any
+} 
+
+
+
 
 

@@ -1,10 +1,15 @@
 <script setup lang="ts">
   import { seacrchHotApi, seacrchSearchApi } from '../../api/index'
 	import { ref, watch } from 'vue'
-	import  type { HotItem } from '../../api/type'
+	import  type { HotItem,SearchDateResult } from '../../api/type'
+	import { useCounterStore } from '../../stores/playLists'
 	
-	const hosts = ref<HotItem[]>([])
+	const userStore = useCounterStore()
+	const hosts = ref<HotItem[]>([]) // 热门播放歌曲
 	const showCancel = ref<boolean>(false)
+	// const searchValue = ref<string>('')
+	const searchList = ref<SearchDateResult>(null) //搜索结果
+	const showsearch = ref<boolean>(true)
 	
 	const song = ref<string>('')
 	//搜索热门推荐
@@ -17,7 +22,7 @@
 	// 思路  --- 增加一个开关， 重新写接口数据   搜索到返回 新的结果
 	const getSearchList = async(keyword:string) => {
 		const res = await seacrchSearchApi(keyword)
-		// hosts.value = res.
+		searchList.value = res.data.result
 	}
 	
 	const cancel = () => {
@@ -29,11 +34,37 @@
 	watch(song, () => {
 		if(song.value === ""){
 			getLists()
+			showsearch.value = true
 		}else{
 			getSearchList(song.value)
+			showsearch.value = false
 		}
 	})
 	
+	// 跳转播放页面
+	const goPlayPage = (item:HotItem) => {
+		console.log(item)
+	}
+ 	const goPlayPageSearch = (item:SearchDateResult) => {
+		const temp = {
+			name: item.name as string,
+			id: item.id as number, 
+			// ar:[{
+			// 	id:item.artist.id  as number,
+			// 	name: item.artist.name  as string
+			// }],
+			// al:{
+			// 	id: item.artists.id as number || item.artist.id as number,
+			// 	name:item.artists.name as string || item.artist.name  as string,
+			// 	picUrl:item.artist.picUrl  as string
+			// }
+		}
+		
+		userStore.setPalyLists(temp)
+		uni.redirectTo({
+		   url: `/pages/playPage/playPage?id=${item.id}`
+		 })
+	}
 	
 </script>
 
@@ -42,36 +73,68 @@
 		<!-- 搜索 -->
 		<view class="uni-form-item uni-column">
 			<view class="uni-inputs">
-				<input class="uni-input" v-model.trim="song" focus placeholder="请输入要搜索的歌曲" @focus="showCancel = true"/>
+				<input class="uni-input" v-model.trim="song" placeholder="请输入要搜索的歌曲" @focus="showCancel = true"/>
 				<view class="del" @click="song = ''" v-show="song && showCancel">
 					x
 				</view>
+				
 			</view>
 			<view class="cancellation" v-if="showCancel" @click="cancel">
 				取消
 			</view>
+
 		</view>
 		
-		<!-- 热门搜索 -->
-		<scroll-view class="scroll-box">
+
+		
+		<!-- 搜索结果 -->
+		<scroll-view  v-if="showsearch">
 			<uni-section  title="热门搜索" type="line">
+			<uni-list>
+				<uni-list-item
+				  v-for="(item, index) in hosts"
+				  :key="item.first"
+				  :title="item.first"
+					clickable
+					@click="goPlayPage(item)"
+				>
+				  <template v-slot:header>
+				    <view class="no">{{index + 1}}</view>
+				  </template>
+				</uni-list-item>
+			</uni-list>
+					</uni-section>
+		</scroll-view>
+		<!-- 热门搜索 -->
+		<scroll-view class="scroll-box" v-else>
+			
 						<uni-list>
 							<uni-list-item
-						    v-for="(item, index) in hosts"
-						    :key="item.first"
-						    :title="item.first"
+						    v-for="(item, index) in searchList?.albums"
+						    :key="item.id"
+						    :title="item.name"
+								:rightText="item.artist.name"
+								clickable
+								@click="goPlayPageSearch(item)"
 						  >
 						    <template v-slot:header>
 						      <view class="no">{{index + 1}}</view>
 						    </template>
 						  </uni-list-item>
 						</uni-list>
-			</uni-section>
-			
-			
-			
-		
-			
+							<uni-list-item
+						    v-for="(item, index) in searchList?.songs"
+						    :key="item.id"
+						    :title="item.name"
+								:rightText="item.artists.map(v => v.name).join('/')"
+								clickable
+								@click="goPlayPageSearch(item)"
+						  >
+						    <template v-slot:header>
+						      <view class="no">{{index + 1 + searchList.albums.length}}</view>
+						    </template>
+						  </uni-list-item>
+	
 		</scroll-view>
 		
 	</view>
@@ -84,6 +147,7 @@
 	width: 100%;
 	height: 100%;
 	padding: 20rpx;
+	box-sizing: border-box;
 }	
 .uni-column{
 	width: 100%;
@@ -91,6 +155,9 @@
 	display: flex;
 	border-radius: 10rpx;
 	overflow: hidden;
+}
+.input{
+	flex: 1;
 }
 .uni-inputs{
 	flex: 1;
