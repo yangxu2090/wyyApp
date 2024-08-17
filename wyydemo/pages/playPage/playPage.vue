@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import {ref, watchEffect} from 'vue'
+	import {ref, watch, watchEffect} from 'vue'
 	import { onLoad } from '@dcloudio/uni-app'
 	import { songDetailApi, lyricApi, songUrlApi } from '../../api/index'
 	import type { SongDeatailItem, SongUrlItem, Song } from '../../api/type'
@@ -23,7 +23,10 @@
 	
 	const curUrlTime = ref<number>(0) // 当前时间
 	const totalUrlTime = ref<number>(0) // 总共时间
-
+	
+	const lyricPage = ref<boolean>(true) //显示歌词界面开关
+  const lyricArr = ref<{time: number,text: string}[]>([]) //歌词数组
+	const myScrollTop = ref<number>(-200) //滚动
 	// 格式化时间
 	const formatTime = (time: number | string) => {
 		let s = Math.floor( (time as number) % 60)
@@ -63,6 +66,7 @@
 		try{
 			const res = await lyricApi(id)
 			songLyric.value = res.data.lrc.lyric
+			lyricArr.value = parseLyrics(res.data.lrc.lyric)
 		}catch(e){
 			uni.showToast({
 			      title: '获取歌曲地址失败',
@@ -91,6 +95,24 @@
 	  })
 	})
 	
+	// 歌曲
+	 function parseLyrics(lyrics:string) {
+	  // 定义一个正则表达式来匹配时间戳和歌词文本
+	  const regex = /\[(\d{2}:\d{2}\.\d{2})\](.*)/;
+	  // 使用正则表达式分割字符串，得到包含时间戳和文本的数组
+	  const entries = lyrics.split('\n').map(line => {
+	    const match = line.match(regex);
+	    if (match) {
+	      const [m, s] = match[1].split(':')
+	      const time = Number(m) * 60 + Number(s) * 1
+	      // 返回一个包含时间戳和文本的对象
+	      return { time, text: match[2].trim() };
+	    }
+	    return null;
+	  }).filter(Boolean)
+	
+	  return entries;
+	}
 	
 	
 	
@@ -114,6 +136,14 @@
 	  console.log(res.errMsg);
 	  console.log(res.errCode);
 	});
+	watch(curUrlTime, () => {
+	
+		lyricArr.value.forEach((v) => {
+			if(Math.floor(v.time) === Math.floor(curUrlTime.value)){
+				myScrollTop.value += 10
+			}
+		})
+	})
 	
 	
 	// 播放歌曲结束
@@ -152,7 +182,6 @@
 			 userStore.curPalyList = 0 
 		 }
 		 const item = userStore.palyLists[userStore.curPalyList]
-		 console.log(item)
 		  uni.redirectTo({
 		     url: `/pages/playPage/playPage?id=${item.id}`
 		   })
@@ -173,9 +202,15 @@
 	 <!-- 内容 -->
  	<view class="paly-center">
 		<!-- 图片banners -->
- 		<view class="paly-center-banners">
+ 		<view class="paly-center-banners" v-if="lyricPage" @click="lyricPage = false">
  			<image :src="songDeatil?.al.picUrl" mode="widthFix"></image>
  		</view>
+		<!-- 歌词 -->
+		<scroll-view class="lysicPage" v-else @click="lyricPage = true" scroll-y :scroll-top="myScrollTop">
+			<view class="lyricItem" v-for="item in lyricArr" :key="item.time">
+				{{item.text}}
+			</view>
+		</scroll-view>
 		
  	</view>
 	 <!-- 按钮 -->
@@ -253,6 +288,7 @@
 uni-page-body{
 	width: 100%;
 	height: 100%;
+	box-sizing: border-box;
 }
 .paly-box{
 	width: 100%;
@@ -277,6 +313,17 @@ uni-page-body{
 			}
 		}
 	}
+}
+.lysicPage{
+	width: 100%;
+	height: 1000rpx;
+	// background-color: skyblue;
+	overflow: hidden;
+}
+.lyricItem{
+	line-height: 100rpx;
+	text-align: center;
+	color: yellowgreen;
 }
 .footer-box{
 	height: 240rpx;
