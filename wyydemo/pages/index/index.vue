@@ -83,7 +83,6 @@ const goPanationwly = (vi:SongListItem) => {
 	});
 }
 
-
 </script>
 
 
