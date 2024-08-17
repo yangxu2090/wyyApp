@@ -73,12 +73,15 @@ const search = () => {
 
 // 猜你喜欢界面
 const goPanationwly = (vi:SongListItem) => {
-	userStore.setPalyLists(vi)
+	const temp = {
+	 name: vi.resourceExtInfo.song.al.name as string,
+	 id: Number(vi.resourceExtInfo.song.al.id) as number, 
+	}
+	userStore.setPalyLists(temp)
 	uni.navigateTo({
 		url: `/pages/playPage/playPage?id=${vi.resourceId}`
 	});
 }
-
 
 </script>
 
