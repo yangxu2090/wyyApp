@@ -2,9 +2,11 @@
 	import {ref} from 'vue'
 	import { bannerApi, homepageApi, personalizedApi, homePageApi } from '../../api/index'
 	import { ballList } from './navball'
-	import  type { BannersItem, RecommendedItem, BannerNewItem, RecommendedPlay} from '../../api/type'
+	import  type { BannersItem, RecommendedItem, BannerNewItem, RecommendedPlay,SongListItem} from '../../api/type'
 	
+	import { useCounterStore } from '../../stores/playLists'
 	
+	const userStore = useCounterStore()
 	
 	const banners = ref<BannersItem[]>([])  // banners 轮播图
 	const playlists = ref<RecommendedItem[]>([]) //  推荐歌单
@@ -69,6 +71,15 @@ const search = () => {
 	})
 }
 
+// 猜你喜欢界面
+const goPanationwly = (vi:SongListItem) => {
+	userStore.setPalyLists(vi)
+	uni.navigateTo({
+		url: `/pages/playPage/playPage?id=${vi.resourceId}`
+	});
+}
+
+
 </script>
 
 
@@ -119,7 +130,7 @@ const search = () => {
 		<scroll-view class="nationwidesong-box" scroll-x>
 			<view class="nationwidesong-box-item" v-for="item in songSheetHost" :key="item.creativeId">
 				<view class="playitem" v-for="vi in item.resources" :key="vi.resourceId">
-					<view class="playitem-left">
+					<view class="playitem-left" @click="goPanationwly(vi)">
 						<image :src="vi.resourceExtInfo.song.al.picUrl" mode="widthFix"></image>
 						<view class="songname">
 							<view class="songname-name">

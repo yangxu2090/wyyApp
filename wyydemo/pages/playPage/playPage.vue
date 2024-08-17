@@ -265,10 +265,10 @@
 				  <uni-section :title="palyListTitle" type="line">
 					 <uni-list>
 							<uni-list-item v-for="(item, index) in userStore.palyLists"
-							              :key="item.id"
-							              :title="item.name"
-							              :note="item.ar.map(v => v.name).join('/')"
-							              :thumb="item.al.picUrl"
+							              :key="item?.id"
+							              :title="item?.name"
+							              :note="item?.ar?.map(v => v.name).join('/')"
+							              :thumb="item?.al?.picUrl"
 							              :rightText="userStore.curPalyList === index ? '正在播放' : ''"
 														clickable
 														@click="changePlay(item)"

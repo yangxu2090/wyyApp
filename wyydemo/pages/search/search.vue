@@ -49,15 +49,15 @@
 		const temp = {
 			name: item.name as string,
 			id: item.id as number, 
-			// ar:[{
-			// 	id:item.artist.id  as number,
-			// 	name: item.artist.name  as string
-			// }],
-			// al:{
-			// 	id: item.artists.id as number || item.artist.id as number,
-			// 	name:item.artists.name as string || item.artist.name  as string,
-			// 	picUrl:item.artist.picUrl  as string
-			// }
+			ar:[{
+				id:item.artist.id  as number,
+				name: item.artist.name  as string
+			}],
+			al:{
+				id: item.artists.id as number || item.artist.id as number,
+				name:item.artists.name as string || item.artist.name  as string,
+				picUrl:item.artist.picUrl  as string
+			}
 		}
 		
 		userStore.setPalyLists(temp)
