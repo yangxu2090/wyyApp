@@ -2,7 +2,7 @@
 	import {ref, watchEffect} from 'vue'
 	import { onLoad } from '@dcloudio/uni-app'
 	import { songDetailApi, lyricApi, songUrlApi } from '../../api/index'
-	import type { SongDeatailItem, SongUrlItem } from '../../api/type'
+	import type { SongDeatailItem, SongUrlItem, Song } from '../../api/type'
 	import { useCounterStore } from '../../stores/playLists'
 	
 	// 引入全局文件
@@ -157,7 +157,13 @@
 		     url: `/pages/playPage/playPage?id=${item.id}`
 		   })
 	 }
-	 
+	 // 播放列表播放
+	 const changePlay = (item:Song) => {
+		 userStore.setPalyLists(item)
+		 uni.redirectTo({
+		    url: `/pages/playPage/playPage?id=${item.id}`
+		  })
+	 }
 	 
 </script>
 
@@ -218,7 +224,7 @@
 			
 		</view>
 		
-		<!-- 点击评论 -->
+		<!-- 播放列表 -->
 		<uni-popup ref="popup" border-radius="10px 10px 0 0">
 			 <scroll-view class="popup-list" scroll-y>
 				  <uni-section :title="palyListTitle" type="line">
@@ -229,6 +235,8 @@
 							              :note="item.ar.map(v => v.name).join('/')"
 							              :thumb="item.al.picUrl"
 							              :rightText="userStore.curPalyList === index ? '正在播放' : ''"
+														clickable
+														@click="changePlay(item)"
 							            />
 						</uni-list>
 					</uni-section>
